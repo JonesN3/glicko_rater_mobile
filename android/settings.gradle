@@ -1,0 +1,3 @@
+rootProject.name = 'glicko_rater_mobile'
+
+include ':app'
