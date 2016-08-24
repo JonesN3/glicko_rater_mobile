@@ -13,9 +13,17 @@ import store from './store';
 
 import { UIManager, Platform } from 'react-native';
 import LoginPage from './pages/LoginPage';
+import MainPage from './pages/MainPage';
+import LeagueSelectPage from './pages/LeagueSelectPage';
+import AnimationTestPage from './pages/AnimationTestPage';
 
 
-const pages = { 'LoginPage': LoginPage };
+const pages = { 'LoginPage': LoginPage, 'MainPage': MainPage,
+  'LeagueSelectPage': LeagueSelectPage, 'AnimationTestPage': AnimationTestPage};
+
+if (Platform.OS === 'android') {
+  UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+}
 
 const Page = (props) => {
   const DisplayPage = pages[props.pageName]

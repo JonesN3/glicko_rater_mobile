@@ -9,53 +9,43 @@ import {
   AppRegistry,
   StyleSheet,
   TouchableOpacity,
-  Slider,
+  Text,
   StatusBar,
+  View
 } from 'react-native';
-
-import Colors from '../styles/Colors'
-
-
-import { createAnimatableComponent, View, Text } from 'react-native-animatable';
 
 import { connect } from 'react-redux';
 import { StandardButton, OutlineButton } from '../components/buttons';
 import { Button } from 'react-native-material-design';
-import {
-  goToLeaguePage,
-  goToAnimationPage,
-  goToMainPage,
-} from '../actions/PageActions';
+import { goToMainPage } from '../actions/PageActions';
+import { fetchLeagueList, fetchLeagues } from '../actions/fetchData';
 
+import Header from '../components/Header';
+import Colors from '../styles/Colors';
+import LeagueList from '../components/LeagueList';
 
-class LoginPage extends Component {
+class LeagueSelectPage extends Component {
+  constructor() {
+    super();
+  }
+  componentDidMount() {
+    this.props.fetchLeagues('usernamehere')
+  }
+
   render() {
     console.log("render");
+    console.log(this.props);
     return (
       <View style={{ flex:1 }}>
-                <StatusBar
+        <StatusBar
           backgroundColor={Colors.primaryColorDark}
           barStyle="default"/>
-      <View style={styles.container}>
-        <View animation="tada" delay={1500}>
-        <TouchableOpacity onPress={this.props.goToAnimationPage}>
-        <Text style={styles.welcome}>
-          Glicko rater
-        </Text>
-      </TouchableOpacity>
-        <Text style={styles.instructions}>
-          Created with react native.
-        </Text>
-        </View>
-      </View>
-      <View style={{ alignItems: 'center'}}>
-        <OutlineButton text = "Login" onPress={this.props.goToLeaguePage} style={{width: 200}}/>
-      </View>
+      <Header text="Leagues"/>
+      <LeagueList leagues={this.props.leagues} onPress={this.props.goToMainPage}/>
       </View>
     );
   }
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -78,12 +68,13 @@ const styles = StyleSheet.create({
 const ConnectedApp = connect(
   state => ({
     routing: state.routing,
+    leagues: state.leagues,
   }),
   (dispatch) => ({
     goToMainPage: () => dispatch(goToMainPage()),
-    goToLeaguePage: () => dispatch(goToLeaguePage()),
-    goToAnimationPage: () => dispatch(goToAnimationPage()),
+    fetchLeagueList: () => dispatch(fetchLeagueList()),
+    fetchLeagues: (user) => dispatch(fetchLeagues(user)),
   }),
-)(LoginPage);
+)(LeagueSelectPage);
 
 export default ConnectedApp;

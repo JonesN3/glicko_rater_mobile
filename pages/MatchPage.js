@@ -8,48 +8,25 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
-  TouchableOpacity,
-  Slider,
-  StatusBar,
+  Text,
+  View
 } from 'react-native';
-
-import Colors from '../styles/Colors'
-
-
-import { createAnimatableComponent, View, Text } from 'react-native-animatable';
 
 import { connect } from 'react-redux';
 import { StandardButton, OutlineButton } from '../components/buttons';
 import { Button } from 'react-native-material-design';
-import {
-  goToLeaguePage,
-  goToAnimationPage,
-  goToMainPage,
-} from '../actions/PageActions';
+import { goToMainPage } from '../actions/PageActions';
 
 
-class LoginPage extends Component {
+class MatchPage extends Component {
   render() {
     console.log("render");
     return (
       <View style={{ flex:1 }}>
-                <StatusBar
-          backgroundColor={Colors.primaryColorDark}
-          barStyle="default"/>
       <View style={styles.container}>
-        <View animation="tada" delay={1500}>
-        <TouchableOpacity onPress={this.props.goToAnimationPage}>
         <Text style={styles.welcome}>
-          Glicko rater
+          Match page
         </Text>
-      </TouchableOpacity>
-        <Text style={styles.instructions}>
-          Created with react native.
-        </Text>
-        </View>
-      </View>
-      <View style={{ alignItems: 'center'}}>
-        <OutlineButton text = "Login" onPress={this.props.goToLeaguePage} style={{width: 200}}/>
       </View>
       </View>
     );
@@ -75,15 +52,32 @@ const styles = StyleSheet.create({
   },
 });
 
+const fetchMathces = () => {
+  console.log("FETCH!")
+  return(dispatch) => {
+    return fetch('http://glicko-api.desperate.solutions:3000/squash/games', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then( (response) => {
+      console.log("fetch ", response);
+    })
+    .catch( (error ) => {
+      console.warn("Fetch error", error);
+    })
+  }
+}
+
+
 const ConnectedApp = connect(
   state => ({
     routing: state.routing,
   }),
   (dispatch) => ({
-    goToMainPage: () => dispatch(goToMainPage()),
-    goToLeaguePage: () => dispatch(goToLeaguePage()),
-    goToAnimationPage: () => dispatch(goToAnimationPage()),
+
   }),
-)(LoginPage);
+)(MatchPage);
 
 export default ConnectedApp;

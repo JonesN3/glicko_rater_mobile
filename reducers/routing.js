@@ -9,13 +9,15 @@
 
  const initialState = { name: 'LoginPage' }
 
- function routing(state = initalState, action: GoToPageAction) {
+ function routing(state = initialState, action: GoToPageAction) {
    if (action.type === 'GO_TO_PAGE') {
-     return { name: action.name, prev: state.name, questions: action.questions};
+     return { name: action.name, prev: state.name };
    }
    if(action.type === 'GO_TO_PREV_PAGE') {
-     return { name: state.prev, questions: action.questions};
+     return { name: state.prev };
    }
 
    return state;
  }
+
+ export default routing;
