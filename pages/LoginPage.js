@@ -9,6 +9,7 @@ import {
   AppRegistry,
   StyleSheet,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   Slider,
   StatusBar,
 } from 'react-native';
@@ -29,7 +30,16 @@ import {
 
 
 class LoginPage extends Component {
+  constructor(props) {
+    super(props);
+    this._animatables = {};
+    this.state = {
+      duration: 1000,
+      toggledOn: false,
+    };
+  }
   render() {
+    const { duration, toggledOn } = this.state;
     console.log("render");
     return (
       <View style={{ flex:1 }}>
@@ -38,14 +48,17 @@ class LoginPage extends Component {
           barStyle="default"/>
       <View style={styles.container}>
         <View animation="tada" delay={1500}>
-        <TouchableOpacity onPress={this.props.goToAnimationPage}>
-        <Text style={styles.welcome}>
+
+        <TouchableWithoutFeedback onPress={() => this.setState({ toggledOn: !toggledOn })}>
+        <Text style={[styles.welcome, toggledOn && styles.toggledOn]} transition={['color', 'rotate', 'fontSize']}>
           Glicko rater
-        </Text>
-      </TouchableOpacity>
+          </Text>
+        </TouchableWithoutFeedback>
+        <TouchableOpacity onPress={this.props.goToAnimationPage}>
         <Text style={styles.instructions}>
           Created with react native.
         </Text>
+      </TouchableOpacity>
         </View>
       </View>
       <View style={{ alignItems: 'center'}}>
@@ -72,6 +85,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
+  },
+  toggledOn: {
+    transform: [{
+      rotate: '360deg'
+    }, {
+      translateY: -20
+    }]
   },
 });
 

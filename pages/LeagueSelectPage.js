@@ -11,18 +11,20 @@ import {
   TouchableOpacity,
   Text,
   StatusBar,
+  Navigator,
   View
 } from 'react-native';
 
 import { connect } from 'react-redux';
 import { StandardButton, OutlineButton } from '../components/buttons';
 import { Button } from 'react-native-material-design';
-import { goToMainPage } from '../actions/PageActions';
+import { goToMainPage, goToLoginPage } from '../actions/PageActions';
 import { fetchLeagueList, fetchLeagues } from '../actions/fetchData';
 
 import Header from '../components/Header';
 import Colors from '../styles/Colors';
 import LeagueList from '../components/LeagueList';
+import ItemList from '../components/LeagueList'
 
 class LeagueSelectPage extends Component {
   constructor() {
@@ -40,8 +42,8 @@ class LeagueSelectPage extends Component {
         <StatusBar
           backgroundColor={Colors.primaryColorDark}
           barStyle="default"/>
-      <Header text="Leagues"/>
-      <LeagueList leagues={this.props.leagues} onPress={this.props.goToMainPage}/>
+        <Header text1 = "Home" link1 = {this.props.goToLoginPage} text="Leagues"/>
+      <LeagueList leagues={this.props.leagues} onPress={this.props.goToMainPage} />
       </View>
     );
   }
@@ -71,8 +73,8 @@ const ConnectedApp = connect(
     leagues: state.leagues,
   }),
   (dispatch) => ({
-    goToMainPage: () => dispatch(goToMainPage()),
-    fetchLeagueList: () => dispatch(fetchLeagueList()),
+    goToLoginPage: () => dispatch(goToLoginPage()),
+    goToMainPage: (league) => dispatch(goToMainPage(league)),
     fetchLeagues: (user) => dispatch(fetchLeagues(user)),
   }),
 )(LeagueSelectPage);

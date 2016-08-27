@@ -33,7 +33,7 @@ const Header = ({text, link1, text1, link2, text2}: {
 /* Generic page link which takes in action for navigating to a page */
 const PageLink = ({pageLink, text}) => (
   <TouchableOpacity onPress={pageLink} style={{height:100, justifyContent:'center'}}>
-  <Text onPress={pageLink} style={[TextStyle.small, {color: 'black'}]}>
+  <Text onPress={pageLink} style={[TextStyle.normal, {color: Colors.primaryColorText}]}>
     {text}
   </Text>
   </TouchableOpacity>
@@ -42,14 +42,15 @@ const PageLink = ({pageLink, text}) => (
 /* styles */
 const styles = StyleSheet.create({
   bar: {
-    height: 45,
+    height: 48,
     backgroundColor: Colors.primaryColor,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    elevation: 3,
+    elevation: 5,
     paddingLeft: 20,
     paddingRight: 20,
+    marginBottom: 10,
   },
   left: {
     flex: 1,

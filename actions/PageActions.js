@@ -10,8 +10,8 @@
    return { type: 'GO_TO_PAGE', name: 'LoginPage' }
  }
 
- export function goToMainPage(): GoToPageAction {
-   return { type: 'GO_TO_PAGE', name: 'MainPage' }
+ export function goToMainPage(league: Object): GoToPageAction {
+   return { type: 'GO_TO_PAGE', name: 'MainPage', league: league }
  }
 
  export function goToLeaguePage(): GoToPageAction {
