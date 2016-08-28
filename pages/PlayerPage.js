@@ -1,55 +1,54 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
   Text,
+  StatusBar,
   View
 } from 'react-native';
 
 import { connect } from 'react-redux';
-import { StandardButton, OutlineButton } from '../components/buttons';
-import { Button } from 'react-native-material-design';
-import { goToMainPage } from '../actions/PageActions';
+import { StandardButton } from '../components/buttons';
 
+import Colors from '../styles/Colors';
+
+import { goToLoginPage } from '../actions/PageActions';
+
+import { fetchPlayers } from '../actions/fetchData';
+
+import LoginPage  from './LoginPage'
+import MatchPage from './MatchPage'
+import StandingsPage from './StandingsPage'
+import Header from '../components/Header'
+import PlayerList from '../components/PlayerList'
+
+var ScrollableTabView = require('react-native-scrollable-tab-view');
 
 class PlayerPage extends Component {
+  componentDidMount() {
+    console.log(this.props.routing.league.name)
+    this.props.fetchPlayers(this.props.routing.league.name)
+  }
   render() {
-    console.log("render");
+    console.log("PlayerPage", this.props)
     return (
       <View style={{ flex:1 }}>
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Player page
-        </Text>
-      </View>
+      <PlayerList players={this.props.players} />
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+const ConnectedApp = connect(
+  state => ({
+    routing: state.routing,
+    league: state.league,
+    players: state.players,
+  }),
+  (dispatch) => ({
+    goToLoginPage: () => dispatch(goToLoginPage()),
+    fetchPlayers: (league) => dispatch(fetchPlayers(league)),
+  }),
+)(PlayerPage);
 
-export default PlayerPage;
+export default ConnectedApp;

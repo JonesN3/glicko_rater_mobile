@@ -10,7 +10,6 @@ import {
 import Gravatar from 'react-native-avatar-gravatar';
 
 class PlayerList extends Component {
-  // Initialize the hardcoded data
   constructor(props) {
     super(props);
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -21,6 +20,9 @@ class PlayerList extends Component {
 
   componentWillReceiveProps (nextProps) {
     console.log("componentWillReceiveProps", nextProps);
+    if(!nextProps) {
+      console.log("nextProps" == null )
+    } else {
     if (nextProps.players.items !== this.props.players.items) {
       this.setState({
         //elements: nextProps.league.items,
@@ -28,10 +30,7 @@ class PlayerList extends Component {
       })
     }
   }
-
-  componentWillMount() {
-    console.log("componentWillMount");
-  }
+}
 
   render() {
     return (
@@ -45,7 +44,6 @@ class PlayerList extends Component {
   }
 }
 
-//onPress={() => this.rowPressed.bind(this, i)}
 const LeagueField = ({player, action
 }: {
     league: Object,

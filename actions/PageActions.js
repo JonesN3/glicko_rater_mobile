@@ -21,3 +21,7 @@
 export function goToAnimationPage(): GoToPageAction {
   return { type: 'GO_TO_PAGE', name: 'AnimationTestPage'}
 }
+
+export function goToPlayerPage(league: Object): GoToPlayerPage {
+  return { type: 'GO_TO_PAGE', name: 'PlayerPage', league: league }
+}

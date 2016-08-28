@@ -1,23 +1,23 @@
-import { RECEIVE_LEAGUES, REQUEST_LEAGUES } from '../actions/fetchData'
+import { RECEIVE_MATCHES, REQUEST_MATCHES } from '../actions/fetchData'
 
-function leagues(state = {
+function matches(state = {
   isFetching: false,
-  items: [],
+  items: []
 }, action) {
   switch (action.type) {
-    case REQUEST_LEAGUES:
+    case REQUEST_MATCHES:
       return Object.assign({}, state, {
         isFetching: true,
         items: [],
       })
-    case RECEIVE_LEAGUES:
+    case RECEIVE_MATCHES:
       return Object.assign({}, state, {
         isFetching: false,
-        items: action.leagues,
+        items: action.matches,
       })
     default:
       return state
   }
 }
 
-export default leagues;
+export default matches;

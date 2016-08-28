@@ -16,10 +16,12 @@ import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
 import LeagueSelectPage from './pages/LeagueSelectPage';
 import AnimationTestPage from './pages/AnimationTestPage';
+import PlayerPage from './pages/PlayerPage';
 
 
 const pages = { 'LoginPage': LoginPage, 'MainPage': MainPage,
-  'LeagueSelectPage': LeagueSelectPage, 'AnimationTestPage': AnimationTestPage};
+  'LeagueSelectPage': LeagueSelectPage, 'AnimationTestPage': AnimationTestPage,
+  'PlayerPage': PlayerPage };
 
 if (Platform.OS === 'android') {
   UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);

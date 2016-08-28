@@ -19,10 +19,8 @@ export function receiveLeagues(user, json) {
 
 /* Thunk! This is alternative to useing store.dispatch */
 export function fetchLeagues(user) {
-
   /* explain */
   return function (dispatch) {
-
       /* API fetch is starting */
       dispatch(requestLeagues(user))
 
@@ -74,6 +72,45 @@ export function fetchPlayers(league) {
     })
     .catch(error => {
       console.log("ERROR fetching data")
+    })
+  }
+}
+
+/* Matches */
+
+export const REQEUST_MATCHES = 'REQEUST_MATCHES';
+export function requestMatches(league) {
+  return {
+    type: REQEUST_MATCHES,
+    league
+  }
+}
+
+export const RECEIVE_MATCHES = 'RECEIVE_MATCHES';
+export function receiveMatches(league, matches) {
+  return {
+    type: RECEIVE_MATCHES,
+    league,
+    matches,
+  }
+}
+
+export function fetchMatches(league) {
+  return function (dispatch) {
+    dispatch(requestMatches(league))
+
+    return fetch(`${API}/${league}/games`)
+    .then(response =>{
+      const matches = response.json()
+      console.log(response)
+      return matches;
+    })
+    .then(matches => {
+      console.log(matches);
+      dispatch(receiveMatches(league, matches))
+    })
+    .catch(error => {
+      console.log("Error fetching matches", error)
     })
   }
 }

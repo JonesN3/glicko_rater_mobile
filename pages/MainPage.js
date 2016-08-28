@@ -10,40 +10,64 @@ import {
 import { connect } from 'react-redux';
 import { StandardButton } from '../components/buttons';
 
-import Colors from '../styles/Colors';
-
-import { goToLoginPage } from '../actions/PageActions';
-
-import { fetchPlayers } from '../actions/fetchData';
-
-import LoginPage  from './LoginPage'
-import MatchPage from './MatchPage'
+/* pages */
 import PlayerPage from './PlayerPage'
-import StandingsPage from './StandingsPage'
-import Header from '../components/Header'
-import PlayerList from '../components/PlayerList'
+import MatchPage from './MatchPage'
 
-var ScrollableTabView = require('react-native-scrollable-tab-view');
+import PlayerList from '../components/PlayerList';
 
-class MainPage extends Component {
-  componentDidMount() {
-    console.log(this.props.routing.league.name)
-    this.props.fetchPlayers(this.props.routing.league.name)
+import Colors from '../styles/Colors';
+import Header from '../components/Header';
+
+import Swiper from 'react-native-swiper';
+
+var styles = StyleSheet.create({
+  wrapper: {
+    width: 50,
+    height: 100,
+  },
+  slide1: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  slide2: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  slide3: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    color: '#fff',
+    fontSize: 30,
+    fontWeight: 'bold',
   }
-  render() {
-    console.log("MainPage", this.props)
+})
+
+var MainPage = React.createClass({
+  render: function() {
     return (
-      <View style={{ flex:1 }}>
-        <StatusBar
-          backgroundColor={Colors.primaryColorDark}
-          barStyle="default"/>
-        <Header text1 = "Home" link1 = {this.props.goToLoginPage} text={this.props.routing.league.name}/>
-      <PlayerList players={this.props.players} onPress={this.props.goToMainPage}/>
-      </View>
-    );
+      <View >
+        <Header text={this.props.routing.league.name} style={{flex:2}}/>
+        <Swiper height={530} flex={1} style={styles.wrapper} showsButtons={true} showsButtons={false} loop={false}>
+          <View style={styles.slide1}>
+            <PlayerPage/>
+          </View>
+          <View style={styles.slide2}>
+            <MatchPage/>
+          </View>
+          <View style={styles.slide3}>
+            <Text style={styles.text}>And simple</Text>
+          </View>
+        </Swiper>
+    </View>
+    )
   }
-}
-
+})
 
 const ConnectedApp = connect(
   state => ({

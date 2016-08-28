@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
     elevation: 5,
     paddingLeft: 20,
     paddingRight: 20,
-    marginBottom: 10,
   },
   left: {
     flex: 1,
