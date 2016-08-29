@@ -25,3 +25,7 @@ export function goToAnimationPage(): GoToPageAction {
 export function goToPlayerPage(league: Object): GoToPlayerPage {
   return { type: 'GO_TO_PAGE', name: 'PlayerPage', league: league }
 }
+
+export function goBack(): goBack {
+  return { type: 'GO_TO_PREV_PAGE' }
+}

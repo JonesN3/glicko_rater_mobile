@@ -14,7 +14,7 @@
      return { name: action.name, prev: state.name, league: action.league };
    }
    if(action.type === 'GO_TO_PREV_PAGE') {
-     return { name: state.prev };
+     return { name: state.prev, league: state.league };
    }
 
    return state;

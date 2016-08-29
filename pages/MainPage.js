@@ -10,6 +10,8 @@ import {
 import { connect } from 'react-redux';
 import { StandardButton } from '../components/buttons';
 
+import {goBack} from '../actions/PageActions'; 
+
 /* pages */
 import PlayerPage from './PlayerPage'
 import MatchPage from './MatchPage'
@@ -52,7 +54,7 @@ var MainPage = React.createClass({
   render: function() {
     return (
       <View >
-        <Header text={this.props.routing.league.name} style={{flex:2}}/>
+        <Header text1={"back"} link1={this.props.goBack} text={this.props.routing.league.name} style={{flex:2}}/>
         <Swiper height={530} flex={1} style={styles.wrapper} showsButtons={true} showsButtons={false} loop={false}>
           <View style={styles.slide1}>
             <PlayerPage/>
@@ -78,6 +80,7 @@ const ConnectedApp = connect(
   (dispatch) => ({
     goToLoginPage: () => dispatch(goToLoginPage()),
     fetchPlayers: (league) => dispatch(fetchPlayers(league)),
+    goBack: () => dispatch(goBack()),
   }),
 )(MainPage);
 
