@@ -10,14 +10,14 @@ import {
 import { TextStyle } from '../styles/TextStyle';
 import Colors from '../styles/Colors';
 
-const Header = ({text, link1, text1, link2, text2}: {
+const Header = ({text, link1, text1, link2, text2, shadowdisabled}: {
   text: string,
   link1?: any,
   text1?: string,
   link2?: any,
   text2?: string,
 }) => (
-  <View style={styles.bar}>
+  <View style={ [styles.bar, !shadowdisabled && {elevation: 5} ] }>
       <View style={styles.left}>
         <PageLink text={text1} pageLink={link1}/>
       </View>
@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    elevation: 5,
     paddingLeft: 20,
     paddingRight: 20,
   },
