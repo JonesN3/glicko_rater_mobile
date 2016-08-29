@@ -1,6 +1,6 @@
-const API = 'http://glicko-api.desperate.solutions:3000'
+const API = 'http://glicko-api.desperate.solutions:3000';
 
-export const REQUEST_LEAGUES = 'REQUEST_LEAGUES'
+export const REQUEST_LEAGUES = 'REQUEST_LEAGUES';
 export function requestLeagues(user) {
   return {
     type: REQUEST_LEAGUES,
@@ -8,7 +8,7 @@ export function requestLeagues(user) {
   }
 }
 
-export const RECEIVE_LEAGUES = 'RECEIVE_LEAGUES'
+export const RECEIVE_LEAGUES = 'RECEIVE_LEAGUES';
 export function receiveLeagues(user, json) {
   return {
     type: RECEIVE_LEAGUES,
@@ -22,12 +22,12 @@ export function fetchLeagues(user) {
   /* explain */
   return function (dispatch) {
       /* API fetch is starting */
-      dispatch(requestLeagues(user))
+      dispatch(requestLeagues(user));
 
       return fetch(`${API}/leagues`)
       .then(response => {
-        const json = response.json()
-        console.log(json)
+        const json = response.json();
+        console.log(json);
         return json;
       })
       .then(json => {
@@ -35,7 +35,7 @@ export function fetchLeagues(user) {
         dispatch(receiveLeagues(user, json))
       })
       .catch(error => {
-         console.log("ERROR fetching data")
+         console.log("ERROR fetching data: " + error);
        })
   }
 }
@@ -59,19 +59,18 @@ export function receivePlayers(league, data) {
 
 export function fetchPlayers(league) {
   return function (dispatch) {
-    dispatch(requestPlayers(league))
+    dispatch(requestPlayers(league));
 
     return fetch(`${API}/${league}/players`)
     .then(response => {
-      const data = response.json()
-      return data;
+      return response.json();
     })
     .then(data => {
       console.log("DATA", data);
       dispatch(receivePlayers(league, data))
     })
     .catch(error => {
-      console.log("ERROR fetching data")
+      console.log("ERROR fetching data: " + error)
     })
   }
 }
@@ -97,12 +96,12 @@ export function receiveMatches(league, matches) {
 
 export function fetchMatches(league) {
   return function (dispatch) {
-    dispatch(requestMatches(league))
+    dispatch(requestMatches(league));
 
     return fetch(`${API}/${league}/games`)
     .then(response =>{
-      const matches = response.json()
-      console.log(response)
+      const matches = response.json();
+      console.log(response);
       return matches;
     })
     .then(matches => {

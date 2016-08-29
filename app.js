@@ -1,17 +1,8 @@
-/**
- *
- * MIT License
- *
- * @flow
- *
- */
-
 import React from 'react';
 import { connect, Provider } from 'react-redux'
+import { UIManager, Platform } from 'react-native';
 
 import store from './store';
-
-import { UIManager, Platform } from 'react-native';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
 import LeagueSelectPage from './pages/LeagueSelectPage';
@@ -28,9 +19,9 @@ if (Platform.OS === 'android') {
 }
 
 const Page = (props) => {
-  const DisplayPage = pages[props.pageName]
+  const DisplayPage = pages[props.pageName];
   return <DisplayPage />
-}
+};
 
 const ConnectedPage = connect (
   (state) => ({

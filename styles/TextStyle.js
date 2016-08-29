@@ -1,7 +1,17 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
 
-const font = 'sans-serif';
-const textColor = '';
+
+const font = getPlatformFont(Platform.OS);
+
+function getPlatformFont(OS) {
+  if (OS === 'android') {
+    return 'sans-serif';
+  } else if(OS === 'ios') {
+    return 'helvetica'
+  } else {
+    throw new Error("No font for this platform: " + OS);
+  }
+}
 
 export const TextStyle = StyleSheet.create({
   normal: {
