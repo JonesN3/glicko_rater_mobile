@@ -1,4 +1,4 @@
-const API = 'http://glicko-api.desperate.solutions:3000';
+const API = 'https://glicko-api.desperate.solutions';
 
 export const REQUEST_LEAGUES = 'REQUEST_LEAGUES';
 export function requestLeagues(user) {
