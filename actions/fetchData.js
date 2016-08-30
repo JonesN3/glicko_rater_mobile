@@ -1,5 +1,9 @@
-const API = 'https://glicko-api.desperate.solutions';
+/** Use thunk for all API calls. Thunk is mainly structure and syntax sugar, gives a clear data flow
+ *  Dispatch then request is issued and when request finished with received data.
+ */
 
+const API = 'https://glicko-api.desperate.solutions';
+/* Leagues */
 export const REQUEST_LEAGUES = 'REQUEST_LEAGUES';
 export function requestLeagues(user) {
   return {
@@ -9,41 +13,40 @@ export function requestLeagues(user) {
 }
 
 export const RECEIVE_LEAGUES = 'RECEIVE_LEAGUES';
-export function receiveLeagues(user, json) {
+export function receiveLeagues(user, leagues) {
   return {
     type: RECEIVE_LEAGUES,
     user,
-    leagues: json,
+    leagues,
   }
 }
 
-/* Thunk! This is alternative to useing store.dispatch */
-export function fetchLeagues(user) {
-  /* explain */
+/* thunk! */
+export function getLeagues(user) {
   return function (dispatch) {
-      /* API fetch is starting */
+
+      /* Inform that we are starting the request */
       dispatch(requestLeagues(user));
 
+      /* When data is received, dispatch with data and inform the request is fulfilled */
       return fetch(`${API}/leagues`)
-      .then(response => {
-        const json = response.json();
-        console.log(json);
-        return json;
-      })
-      .then(json => {
-        console.log("JSON", json);
+      .then(response =>
+        response.json()
+      )
+      .then(json =>
         dispatch(receiveLeagues(user, json))
-      })
+      )
       .catch(error => {
          console.log("ERROR fetching data: " + error);
        })
   }
 }
 
-export const REQEUST_PLAYERS = 'REQEUST_PLAYERS';
+/* Players */
+export const REQUEST_PLAYERS = 'REQUEST_PLAYERS';
 export function requestPlayers(league) {
   return {
-    type: REQEUST_PLAYERS,
+    type: REQUEST_PLAYERS,
     league
   }
 }
@@ -57,18 +60,17 @@ export function receivePlayers(league, data) {
   }
 }
 
-export function fetchPlayers(league) {
+export function getPlayers(league) {
   return function (dispatch) {
     dispatch(requestPlayers(league));
 
     return fetch(`${API}/${league}/players`)
-    .then(response => {
-      return response.json();
-    })
-    .then(data => {
-      console.log("DATA", data);
+    .then(response =>
+      response.json()
+    )
+    .then(data =>
       dispatch(receivePlayers(league, data))
-    })
+    )
     .catch(error => {
       console.log("ERROR fetching data: " + error)
     })
@@ -76,11 +78,10 @@ export function fetchPlayers(league) {
 }
 
 /* Matches */
-
-export const REQEUST_MATCHES = 'REQEUST_MATCHES';
+export const REQUEST_MATCHES = 'REQUEST_MATCHES';
 export function requestMatches(league) {
   return {
-    type: REQEUST_MATCHES,
+    type: REQUEST_MATCHES,
     league
   }
 }
@@ -94,20 +95,17 @@ export function receiveMatches(league, matches) {
   }
 }
 
-export function fetchMatches(league) {
+export function getMatches(league) {
   return function (dispatch) {
     dispatch(requestMatches(league));
 
     return fetch(`${API}/${league}/games`)
-    .then(response =>{
-      const matches = response.json();
-      console.log(response);
-      return matches;
-    })
-    .then(matches => {
-      console.log(matches);
+    .then(response =>
+      response.json()
+    )
+    .then(matches =>
       dispatch(receiveMatches(league, matches))
-    })
+    )
     .catch(error => {
       console.log("Error fetching matches", error)
     })

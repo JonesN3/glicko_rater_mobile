@@ -7,7 +7,7 @@
  */
 
 import { createStore, applyMiddleware } from 'redux'
-import { fetchLeagues } from './actions/fetchData'
+import { getLeagues } from './actions/fetchData'
 
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
@@ -31,7 +31,7 @@ const loggerMiddleware = createLogger()
 
  const store = configureStore({});
 
- store.dispatch(fetchLeagues('reactjs')).then(() =>
+ store.dispatch(getLeagues('reactjs')).then(() =>
   console.log(store.getState())
 )
 

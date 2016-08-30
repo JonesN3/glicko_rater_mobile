@@ -19,7 +19,7 @@ import { connect } from 'react-redux';
 import { StandardButton, OutlineButton } from '../components/buttons';
 import { Button } from 'react-native-material-design';
 import { goToMainPage, goToLoginPage, goToPlayerPage } from '../actions/PageActions';
-import { fetchLeagueList, fetchLeagues } from '../actions/fetchData';
+import { fetchLeagueList, getLeagues } from '../actions/fetchData';
 
 import Header from '../components/Header';
 import Colors from '../styles/Colors';
@@ -76,7 +76,7 @@ const ConnectedApp = connect(
     goToLoginPage: () => dispatch(goToLoginPage()),
     goToMainPage: (league) => dispatch(goToMainPage(league)),
     goToPlayerPage: (league) => dispatch(goToPlayerPage(league)),
-    fetchLeagues: (user) => dispatch(fetchLeagues(user)),
+    fetchLeagues: (user) => dispatch(getLeagues(user)),
   }),
 )(LeagueSelectPage);
 

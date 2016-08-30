@@ -126,7 +126,7 @@ const ConnectedApp = connect(
   }),
   (dispatch) => ({
     goToLoginPage: () => dispatch(goToLoginPage()),
-    fetchPlayers: (league) => dispatch(fetchPlayers(league)),
+    fetchPlayers: (league) => dispatch(getPlayers(league)),
     goBack: () => dispatch(goBack()),
   }),
 )(MainPage);

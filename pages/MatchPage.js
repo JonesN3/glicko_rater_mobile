@@ -14,7 +14,7 @@ import Colors from '../styles/Colors';
 
 import { goToLoginPage } from '../actions/PageActions';
 
-import { fetchPlayers, fetchMatches } from '../actions/fetchData';
+import { getPlayers, getMatches } from '../actions/fetchData';
 
 import LoginPage  from './LoginPage'
 import StandingsPage from './StandingsPage'
@@ -47,7 +47,7 @@ const ConnectedApp = connect(
   }),
   (dispatch) => ({
     goToLoginPage: () => dispatch(goToLoginPage()),
-    fetchMatches: (league) => dispatch(fetchMatches(league)),
+    fetchMatches: (league) => dispatch(getMatches(league)),
   }),
 )(MatchPage);
 
