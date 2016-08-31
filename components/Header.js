@@ -1,9 +1,14 @@
+/**
+ *
+ * @flow
+ */
 
 import React from 'react';
 import {
   StyleSheet,
   TouchableOpacity,
   Text,
+  StatusBar,
   View,
 } from 'react-native';
 
@@ -18,24 +23,27 @@ const Header = ({text, link1, text1, link2, text2, shadowdisabled}: {
   text2?: string,
 }) => (
   <View style={ [styles.bar, !shadowdisabled && {elevation: 5} ] }>
-      <View style={styles.left}>
-        <PageLink text={text1} pageLink={link1}/>
-      </View>
-        <Text style={[TextStyle.normal, styles.title]}>
-          {text}
-        </Text>
-      <View style={styles.right}>
-        <PageLink text={text2} pageLink={link2} />
-      </View>
+    <StatusBar
+      backgroundColor={Colors.primaryColorDark}
+      barStyle="default"/>
+    <View style={styles.left}>
+      <PageLink text={text1} pageLink={link1}/>
+    </View>
+    <Text style={[TextStyle.normal, styles.title]}>
+      {text}
+    </Text>
+    <View style={styles.right}>
+      <PageLink text={text2} pageLink={link2} />
+    </View>
   </View>
 );
 
 /* Generic page link which takes in action for navigating to a page */
 const PageLink = ({pageLink, text}) => (
   <TouchableOpacity onPress={pageLink} style={{height:100, justifyContent:'center'}}>
-  <Text onPress={pageLink} style={[TextStyle.normal, {color: Colors.primaryColorText}]}>
-    {text}
-  </Text>
+    <Text onPress={pageLink} style={[TextStyle.normal, {color: Colors.primaryColorText}]}>
+      {text}
+    </Text>
   </TouchableOpacity>
 );
 

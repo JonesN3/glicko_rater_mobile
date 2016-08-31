@@ -1,8 +1,15 @@
+/**
+ * MIT
+ *
+ * @flow
+ */
 import React, { Component } from 'react';
 import {
   AppRegistry,
+  Dimmensions,
   StyleSheet,
   Text,
+  LayoutAnimation,
   StatusBar,
   View
 } from 'react-native';
@@ -35,85 +42,82 @@ var styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
   },
+  slide: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: 'transparent'
+  },
   container: {
-   flex: 1,
- },
- page: {
-   flex: 1,
-   alignItems: 'center',
-   justifyContent: 'center',
- },
+    flex: 1,
+  },
+  page: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  bar: {
+    height: 48,
+    backgroundColor: Colors.primaryColor,
+    elevation: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
 });
 
 class MainPage extends Component {
   constructor() {
     super();
-    this.state = {
-      index: 0,
-      routes: [
-        { key: '1', title: 'Players' },
-        { key: '2', title: 'Matches' },
-      ],
-    }
   }
 
-  _handleChangeTab = (index) => {
-    this.setState({ index });
-  };
+  componentWillMount() {
 
-  _renderHeader = (props) => {
-    return <TabBarTop style={{backgroundColor: Colors.primaryColor}} indicatorStyle={{ backgroundColor: Colors.primaryColorText }} {...props} />;
-  };
-
-  _renderScene = ({ route }) => {
-    switch (route.key) {
-    case '1':
-      //return <View style={[ styles.page, { backgroundColor: '#ff4081' } ]} />;
-      return <PlayerPage/>
-    case '2':
-      //return <View style={[ styles.page, { backgroundColor: '#673ab7' } ]} />;
-      return <MatchPage/>
-    default:
-      return null;
-    }
-  };
-
-  _renderPage = (props) => {
-    return <TabViewPage {...props} renderScene={this._renderScene} />;
-  };
+  }
 
   render() {
     return (
       <View>
-                  <StatusBar
-            backgroundColor={Colors.primaryColorDark}
-            barStyle="default"/>
-      <Header text1={"back"} link1={this.props.goBack} text={this.props.routing.league.name} shadowdisabled={true}/>
-      <TabViewAnimated height={520}
-        style={styles.container}
-        navigationState={this.state}
-        renderScene={this._renderPage}
-        renderHeader={this._renderHeader}
-        onRequestChangeTab={this._handleChangeTab}
-      />
-    </View>
-    );
+        <Header text1={"back"}
+                link1={this.props.goBack}
+                text={this.props.routing.league.name}
+                shadowdisabled={true}/>
+        <Swiper height={520}
+                marginTop={50}
+                renderPagination={renderPagination}
+                loop={false}
+                paginationStyle={{ bottom: -23, left: null, right: 10, }} >
+            <PlayerPage />
+          <MatchPage />
+        </Swiper>
+      </View>
+    )
   }
 };
+
+const pageName = [ 'Players', 'Games'];
 
 const renderPagination = (index, total, context) => {
   return (
     <View style={{
       position: 'absolute',
-      bottom: -25,
-      right: 10
+      top: 0,
+      width: 370,
     }}>
-      <Text>
-        <Text style={{
-          color: '#007aff',
-          fontSize: 20
-        }}>{index + 1}</Text>/{total}
-      </Text>
+      <View style={styles.bar} >
+        <View>
+          <Text style={{color: Colors.primaryColorText}}>
+            {index + 1}/{total}: {pageName[index]}
+          </Text>
+        </View>
+        <View>
+          <Text> Hello </Text>
+        </View>
+        <View>
+          <Text> Test </Text>
+        </View>
+      </View>
     </View>
   )
 }

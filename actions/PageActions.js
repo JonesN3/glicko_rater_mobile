@@ -4,7 +4,7 @@
  *
  */
 
- import { GoToPageAction } from '../types';
+ import type { GoToPageAction } from '../types';
 
  export function goToLoginPage(): GoToPageAction {
    return { type: 'GO_TO_PAGE', name: 'LoginPage' }
