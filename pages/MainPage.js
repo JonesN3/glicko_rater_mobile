@@ -11,6 +11,8 @@ import {
   Text,
   LayoutAnimation,
   StatusBar,
+  TouchableOpacity,
+  TouchableHighlight,
   View
 } from 'react-native';
 
@@ -62,8 +64,12 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingLeft: 20,
-    paddingRight: 20,
+  },
+  tab: {
+    height:60,
+    justifyContent:'center',
+    flex:1,
+    alignItems:'center',
   },
 });
 
@@ -88,7 +94,7 @@ class MainPage extends Component {
                 renderPagination={renderPagination}
                 loop={false}
                 paginationStyle={{ bottom: -23, left: null, right: 10, }} >
-            <PlayerPage />
+          <PlayerPage />
           <MatchPage />
         </Swiper>
       </View>
@@ -96,9 +102,14 @@ class MainPage extends Component {
   }
 };
 
+
 const pageName = [ 'Players', 'Games'];
 
 const renderPagination = (index, total, context) => {
+  var tabs = [];
+  for (var i=0; i < 2; i++) {
+    tabs.push(tab(index, i, pageName[i]));
+  }
   return (
     <View style={{
       position: 'absolute',
@@ -106,21 +117,19 @@ const renderPagination = (index, total, context) => {
       width: 370,
     }}>
       <View style={styles.bar} >
-        <View>
-          <Text style={{color: Colors.primaryColorText}}>
-            {index + 1}/{total}: {pageName[index]}
-          </Text>
-        </View>
-        <View>
-          <Text> Hello </Text>
-        </View>
-        <View>
-          <Text> Test </Text>
-        </View>
+        {tabs}
       </View>
     </View>
-  )
-}
+  )};
+
+const tab = (index, cur, name) => {
+  return(
+    <TouchableOpacity height={100} style={[styles.tab, (cur == index) && {backgroundColor:Colors.primaryColorDark} ]}>
+      <View>
+        <Text style={{color: Colors.primaryColorText}}> {name} </Text>
+      </View>
+    </TouchableOpacity>
+  )};
 
 const ConnectedApp = connect(
   state => ({
